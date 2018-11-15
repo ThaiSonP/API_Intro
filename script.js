@@ -14,61 +14,33 @@ const APIResponse = {
         "boxer": [],
         "brabancon": [],
         "briard": [],
-        "bulldog": [
-            "boston",
-            "french"
-        ],
-        "bullterrier": [
-            "staffordshire"
-        ],
+        "bulldog":["boston","french"],
+        "bullterrier":["staffordshire"],
         "cairn": [],
-        "cattledog": [
-            "australian"
-        ],
+        "cattledog":["australian"],
         "chihuahua": [],
         "chow": [],
         "clumber": [],
         "cockapoo": [],
-        "collie": [
-            "border"
-        ],
+        "collie": ["border"],
         "coonhound": [],
-        "corgi": [
-            "cardigan"
-        ],
+        "corgi": ["cardigan"],
         "cotondetulear": [],
         "dachshund": [],
         "dalmatian": [],
-        "dane": [
-            "great"
-        ],
-        "deerhound": [
-            "scottish"
-        ],
+        "dane": ["great"],
+        "deerhound": ["scottish"],
         "dhole": [],
         "dingo": [],
         "doberman": [],
-        "elkhound": [
-            "norwegian"
-        ],
+        "elkhound": ["norwegian"],
         "entlebucher": [],
         "eskimo": [],
-        "frise": [
-            "bichon"
-        ],
+        "frise": ["bichon"],
         "germanshepherd": [],
-        "greyhound": [
-            "italian"
-        ],
+        "greyhound": ["italian"],
         "groenendael": [],
-        "hound": [
-            "afghan",
-            "basset",
-            "blood",
-            "english",
-            "ibizan",
-            "walker"
-        ],
+        "hound": ["afghan","basset","blood","english","ibizan","walker"],
         "husky": [],
         "keeshond": [],
         "kelpie": [],
@@ -80,16 +52,10 @@ const APIResponse = {
         "malamute": [],
         "malinois": [],
         "maltese": [],
-        "mastiff": [
-            "bull",
-            "tibetan"
-        ],
+        "mastiff": ["bull","tibetan"],
         "mexicanhairless": [],
         "mix": [],
-        "mountain": [
-            "bernese",
-            "swiss"
-        ],
+        "mountain": ["bernese","swiss"],
         "newfoundland": [],
         "otterhound": [],
         "papillon": [],
@@ -112,32 +78,15 @@ const APIResponse = {
         "puggle": [],
         "pyrenees": [],
         "redbone": [],
-        "retriever": [
-            "chesapeake",
-            "curly",
-            "flatcoated",
-            "golden"
-        ],
-        "ridgeback": [
-            "rhodesian"
-        ],
+        "retriever": ["chesapeake","curly","flatcoated","golden"],
+        "ridgeback": ["rhodesian"],
         "rottweiler": [],
         "saluki": [],
         "samoyed": [],
         "schipperke": [],
-        "schnauzer": [
-            "giant",
-            "miniature"
-        ],
-        "setter": [
-            "english",
-            "gordon",
-            "irish"
-        ],
-        "sheepdog": [
-            "english",
-            "shetland"
-        ],
+        "schnauzer": ["giant","miniature"],
+        "setter": ["english","gordon","irish"],
+        "sheepdog": ["english","shetland"],
         "shiba": [],
         "shihtzu": [],
         "spaniel": [
@@ -171,25 +120,59 @@ const APIResponse = {
             "sealyham",
             "silky",
             "tibetan",
-            "toy",
-            "westhighland",
-            "wheaten",
-            "yorkshire"
-        ],
+            "toy","westhighland","wheaten","yorkshire"],
         "vizsla": [],
         "weimaraner": [],
         "whippet": [],
-        "wolfhound": [
-            "irish"
-        ]
+        "wolfhound": ["irish"]
     }
 }
 
 let breedList = [];
-breedList.push(APIResponse['message'])
+let info = APIResponse['message']
 
-let words = "hello world"
-console.log(words.toUpperCase())
+function toUpperCase(names){
+  let answer = "";
+  answer+= names[0].toUpperCase()+names.slice(1)
+  return(answer)
+}
 
-// console.log(APIResponse['message'])
-// console.log(breedList.length)
+Object.keys(info).forEach((breed) => {
+  if (info[breed].length) {
+    info[breed].forEach((subBreed) => {
+      breedList.push((toUpperCase(subBreed) + " " + toUpperCase(breed)))
+    })
+  } else {
+    breedList.push(toUpperCase(breed))
+  }
+})
+
+function getDog (){
+  let position = Math.floor(Math.random() * 131)
+  return breedList[position]
+}
+
+document.addEventListener("DOMContentLoaded" ,()=>{
+  let body = document.querySelector("body");
+  let submit = document.querySelector(".submit")
+  let submit2 = document.querySelector(".submit")
+  let createP =document.createElement("p");
+
+  function makeDog(){
+    createP.innerText = getDog();
+    event.target.parentNode.appendChild(createP,event.target)
+  }
+  function removeDog(){
+    let createP =document.createElement("p");
+    event.target.parentNode.appendChild(createP,event.target).remove(createP,event.target)
+  }
+
+
+  submit.addEventListener("click",()=>{
+    submit.innerText = `Another One!`
+    makeDog()
+  submit2.addEventListener("click",()=>{
+    removeDog()
+    })
+  })
+})
